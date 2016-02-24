@@ -83,6 +83,14 @@
  		 return 0;
  	}
 
+ 	function materialCost($item_id){
+ 		$sql= "SELCT SUM(amount) FROM ".$this->table." WHERE item_id=".$item_id;
+ 		$result = $this->db->query($sql);
+ 		$data=$result->fetch_row();
+ 		return $data;
+
+ 	}
+
  	
  }
 

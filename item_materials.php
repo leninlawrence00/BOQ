@@ -64,6 +64,7 @@
                   <button type="button" id="addmaterial" class="btn btn-primary">Add material</button>
                 </div><!-- /.box-header -->
                 <div class="box-body">
+                  
                   <table id="users" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -148,7 +149,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" id="submituser" class="btn btn-primary">Add Material</button>
+                          <button type="button" id="add_mat" class="btn btn-primary">Add Material</button>
                       </div>
                   </div>
               </div>
@@ -209,6 +210,46 @@
 
         $('#addmaterial').on('click',function(){
           $("#myModal").modal('show');
+        })
+
+        $('#add_mat').on('click',function(){
+        
+          var material_name = $('#material_name').val();
+
+          var quantity      = $('#quantity').val();
+
+          var unit   = $('#unit').val();
+
+          var rate   = $('#rate').val();
+
+          var amount = $('#amount').val();
+
+          var item_code = $('#item_code').val();
+
+          if(material_name=="" || quantity=="" || unit=="" || rate=="" || item_code="")
+          {
+
+            alert("Please fill all the required fields")
+          }
+          else
+          {
+            var postdata = {
+            
+            material_name:material_name,
+            quantity     : quantity,
+            unit         : unit,
+            rate         : rate,
+            amount       : amount,
+            item_code    : item_code
+
+          }
+          $.post('controllers/add_item_materials.php',postdata,function(data){
+
+          })
+          }
+
+          
+
         })
 
 
