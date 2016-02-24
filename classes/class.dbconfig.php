@@ -10,7 +10,7 @@
 
  	  private $db      = "boq";
 
- 	  private $conn    = "";
+ 	  private $conn ;
 
  	  public function connectDB(){
 

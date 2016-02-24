@@ -60,16 +60,19 @@
 
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Customers</h3>
-                  <button type="button" id="adduser" class="btn btn-primary">Add Customer</button>
+                  <h3 class="box-title">Define Item</h3>
+                  <button type="button" id="addmaterial" class="btn btn-primary">Add material</button>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="users" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Id</th>
-                        <th>Item</th>
-                        <th>Category</th>
+                        <th>Material Code</th>
+                        <th>Material Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -80,9 +83,12 @@
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>Id</th>
-                        <th>Item</th>
-                        <th>Category</th>
+                        <th>Material Code</th>
+                        <th>Material Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
                         <th>Action</th>
                       </tr>
                     </tfoot>
@@ -96,7 +102,7 @@
                   <div class="modal-content">
                       <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Add Customer Details</h4>
+                          <h4 class="modal-title">Define Item</h4>
                       </div>
                       <div class="modal-body">
                           <div class="box box-primary">
@@ -107,70 +113,31 @@
                                    <form>
                                       <div class="row">
                                          <div class="col-xs-6">
-                                              <input type="text" class="form-control" placeholder="Customer Name">
+                                              <input type="text" class="form-control" id="mat_name" placeholder="Material Name">
                                           </div>
                                           <div class="col-xs-6">
-                                              <input type="text" class="form-control" placeholder="P O Box">
+                                              <input type="text" class="form-control" id="quantity" placeholder="Quantity">
                                           </div>
                                       </div>
                                       <br>
                                       <div class="row">
                                           <div class="col-xs-6">
-                                              <input type="text" class="form-control" placeholder="Place">
+                                              <input type="text" class="form-control" id="unit" placeholder="Unit">
                                           </div>
                                           <div class="col-xs-6">
-                                              <input type="text" class="form-control" placeholder="Zip Code">
+                                              <input type="text" class="form-control" id="rate" placeholder="Rate">
                                           </div>
                                       </div>
                                       <br>
                                       <div class="row">
-                                          <div class="col-xs-6">
-                                              <select class="form-control">
-                                                 <option>Country</option>
-                                              </select>
-                                          </div>
-                                          <div class="col-xs-6">
-                                              <input type="text" class="form-control" placeholder="Contact Person">
-                                          </div>
-                                      </div>
-
-                                      <br>
-                                      <div class="row">
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Phone No 1">
-                                          </div>
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Phone No 2">
-                                          </div>
-                                      </div>
-
-                                      <br>
-                                      <div class="row">
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Email">
-                                          </div>
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Website">
-                                          </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Native">
-                                          </div>
-                                          <div class="col-xs-6">
-                                               <input type="text" class="form-control" placeholder="Industry">
-                                          </div>
-                                      </div>
-                                      <br>
-                                      <div class="row">
-                                          <div class="col-xs-12">
-                                               <textarea class="form-group" rows="3"  style="resize:none">
-                                                
-                                              </textarea>
-                                          </div>
                                           
+                                          <div class="col-xs-12">
+                                              <input type="text" class="form-control" id="amount" placeholder="Amount">
+                                          </div>
                                       </div>
+
+                                      <br>
+                                     
                                   </form>
                                 
                               </div><!-- /.box-body -->
@@ -181,7 +148,7 @@
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" id="submituser" class="btn btn-primary">Save changes</button>
+                          <button type="button" id="submituser" class="btn btn-primary">Add Material</button>
                       </div>
                   </div>
               </div>
@@ -239,39 +206,10 @@
     <script>
       $(function () {
         var userTable=$("#users").DataTable();
-        
 
-        $('#adduser').on('click',function(){
+        $('#addmaterial').on('click',function(){
           $("#myModal").modal('show');
-        });
-
-        $('#submituser').on('click',function(){
-           var full_name = $('#fullname').val();
-           var username  = $('#username').val();
-           var password  = $('#password').val();
-
-           if(full_name=='' || username=='' || password=='')
-           {
-            alert('Please fill all the required details');
-           }
-           else
-           {
-              //var url = '<?php echo base_url(); ?>' + 'index.php/users_controller/add_user';
-              $.post(url,
-                {
-                  full_name:full_name,
-                  username :username,
-                  password : password
-                },function(data){
-                     if(data.status)
-                     {
-                      $("#myModal").modal('hide');
-                      $("#myModal1").modal('show');
-                     }
-                });
-           }
         })
-        
 
 
       });
