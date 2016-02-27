@@ -35,12 +35,13 @@
  	}
 
 
- 	public function addItem($item_name,$item_code,$material_cost,$waist,$labour_cost,$eqp,$other_cost,$total_cost,$margin,$total_amount){
+ 	public function addItem($item_name,$item_code,$material_cost,$waist,$eqp_hr,$eqp_rate,$margin,$total_amount){
 
- 		$sql = "INSERT INTO ".$this->table."(item_code,item_name,material_cost,waist,labour_cost,eqp,other_cost,total_cost,margin,total_amount)";
+ 		$sql = "INSERT INTO ".$this->table."(item_code,item_name,material_cost,waist,eqp_hr,eqp_rate,margin,total_amount)";
 
- 		$sql.=" VALUES (".$item_code.",'".$item_name."',".$material_cost.",".$waist.",".$labour_cost.",".$eqp.",".$other_cost.",".$total_cost.",".$margin.",".$total_amount.")";
+ 		$sql.=" VALUES (".$item_code.",'".$item_name."',".$material_cost.",".$waist.",".$eqp_hr.",".$eqp_rate.",".$margin.",".$total_amount.")";
 
+        
  		if($this->db->query($sql)){
  			
  			return 1;
@@ -61,6 +62,26 @@
  		 return 0;
  	}
 
+ 	public function checkItemExist($item_name)
+    {
+        $sql = "SELECT count(*) AS count FROM ".$this->table." WHERE item_name='".$item_name."'";
+
+        
+        $result = $this->db->query($sql);
+        $data=$result->fetch_row();
+
+
+        return $data[0];
+    }
+
+ 	/*public function checkItemExist($item_code){
+
+ 		 $sql = "SELECT COUNT(*) as count FROM items WHERE item_code=".$item_code;
+ 		 $result = $this->db->query($sql);
+ 		 $data=$result->fetch_row();
+ 		 return $data;
+ 		 
+ 	} */
 
  }
  

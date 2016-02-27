@@ -76,19 +76,30 @@
 
  		
  		$result = $this->db->query($sql);
- 		$data=$result->fetch_assoc();
- 		if($data)
- 		 return $data; 
- 		else
- 		 return 0;
+
+ 		$mat = array();
+
+ 		while($data=$result->fetch_assoc())
+ 		{
+ 			array_push($mat,$data);
+ 		}
+ 		
+ 		return $mat;
  	}
 
  	function materialCost($item_id){
- 		$sql= "SELCT SUM(amount) FROM ".$this->table." WHERE item_id=".$item_id;
+ 		$sql= "SELECT SUM(amount) as material_cost FROM ".$this->table." WHERE item_id=".$item_id;
  		$result = $this->db->query($sql);
  		$data=$result->fetch_row();
+ 		//return $data['material_cost'];
  		return $data;
 
+ 	}
+
+ 	function getMaterialsForItem($item_code)
+ 	{
+ 		$where = array('item_id'=>$item_code);
+ 		return $this->getMaterials(null,$where);
  	}
 
  	
