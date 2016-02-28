@@ -55,11 +55,16 @@
 
  		$sql = "SELECT * FROM items";
  		$result = $this->db->query($sql);
- 		$data=$result->fetch_assoc();
- 		if($data)
- 		 return $data; 
- 		else
- 		 return 0;
+ 		
+
+ 		$mat = array();
+
+ 		while($data=$result->fetch_assoc())
+ 		{
+ 			array_push($mat,$data);
+ 		}
+ 		
+ 		return $mat;
  	}
 
  	public function checkItemExist($item_name)
